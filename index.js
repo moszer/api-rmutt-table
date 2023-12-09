@@ -10,6 +10,7 @@ const port = 3000;
 app.use(express.json());
 
 const scheduleData = [];
+const holdingdata = [];
 
 const getCookie = async () => {
   try {
@@ -80,6 +81,11 @@ const makePostRequest = async (cookie) => {
 
 app.post('/schedule', async (req, res) => {
   try {
+
+    // Clear the arrays at the beginning of each request 
+    scheduleData.length = 0;
+    holdingdata.length = 0;
+
     const { username_, password_ } = req.body;
 
     postData.f_uid = username_;
@@ -94,13 +100,14 @@ app.post('/schedule', async (req, res) => {
       ['จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์', 'อาทิตย์', 'Day/Time'].includes(item.column1)
     );
 
+    const name_ = scheduleData.filter((item) => ['ชื่อ'].includes(item.column2))
+
     console.log(username_, password_);
+    console.log(name_)
 
     if (filteredSchedule.length === 0) {
       return res.status(204).send('No data');
     }
-
-    const holdingdata = [];
 
     function parseScheduleData(days) {
       let i = 0; // Declare i inside the function
