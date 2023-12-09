@@ -89,7 +89,7 @@ app.post('/schedule', async (req, res) => {
       ['จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์', 'อาทิตย์', 'Day/Time'].includes(item.column1)
     );
 
-    console.log(filteredSchedule);
+    console.log(username_, password_);
 
     if (filteredSchedule.length === 0) {
       return res.status(204).send('No data');
