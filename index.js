@@ -70,6 +70,9 @@ const makePostRequest = async (cookie) => {
     });
 
     scheduleData.push(...jsonData);
+
+    // ทำให้ฟังก์ชันเป็น Promise และส่งค่าเพื่อให้ใช้ await ได้
+    return Promise.resolve(); 
   } catch (error) {
     throw new Error(error);
   }
@@ -83,6 +86,8 @@ app.post('/schedule', async (req, res) => {
     postData.f_pwd = password_;
 
     const initialCookie = await getCookie();
+    
+    // เพิ่ม await เพื่อรอให้ makePostRequest เสร็จสิ้นก่อนที่จะดำเนินการต่อ
     await makePostRequest(initialCookie);
 
     const filteredSchedule = scheduleData.filter((item) =>
