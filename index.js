@@ -3,10 +3,12 @@ const axios = require('axios');
 const iconv = require('iconv-lite');
 const cheerio = require('cheerio');
 const { URLSearchParams } = require('url');
+const cors = require('cors');
 
 const app = express();
 const port = 3000;
 
+app.use(cors()); //fix cors
 app.use(express.json());
 
 const scheduleData = [];
