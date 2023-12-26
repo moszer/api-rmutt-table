@@ -88,6 +88,7 @@ app.post('/schedule', async (req, res) => {
     // Clear the arrays at the beginning of each request 
     scheduleData.length = 0;
     holdingdata.length = 0;
+    username.length = 0;
 
     const { username_, password_ } = req.body;
 
