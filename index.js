@@ -13,6 +13,7 @@ app.use(express.json());
 
 const scheduleData = [];
 const holdingdata = [];
+const username = [];
 
 const getCookie = async () => {
   try {
@@ -107,6 +108,9 @@ app.post('/schedule', async (req, res) => {
     console.log(username_, password_);
     console.log(name_)
 
+    //set username of schedule
+    username.push(name_)
+
     if (filteredSchedule.length === 0) {
       return res.status(204).send('No data');
     }
@@ -150,7 +154,7 @@ app.post('/schedule', async (req, res) => {
     
         // แปลง input เป็น output
         let output = {};
-    
+        
         // วนลูปผ่านทุกวัน
         input.forEach((day, index) => {
             let currentTime = startTime;
@@ -165,11 +169,12 @@ app.post('/schedule', async (req, res) => {
             }
             output[`Day_${index + 1}`] = dailyOutput;
         });
-    
+        
         return output;
     }
-    
     const result = convertHoursToTime(holdingdata);
+
+    result["username"] = username[0]
 
     res.status(200).json(result);
 
